@@ -210,11 +210,13 @@ def plot_loss_accuracy_graph(trainObj, testObj, EPOCHS):
 
     fig, ax = plt.subplots(1, 2, figsize=(15, 5))
 
-    train_epoch_linspace = np.linspace(1, EPOCHS, len(trainObj.train_losses))
+    train_losses = [temp.cpu().detach() for temp in trainObj.train_losses]
+
+    train_epoch_linspace = np.linspace(1, EPOCHS, len(train_losses))
     test_epoch_linspace = np.linspace(1, EPOCHS, len(testObj.test_losses))
 
     # Loss Plot
-    ax[0].plot(train_epoch_linspace, trainObj.train_losses, label='Training Loss')
+    ax[0].plot(train_epoch_linspace, train_losses, label='Training Loss')
     ax[0].set_xlabel('Epochs')
     ax[0].set_ylabel('Loss')
     ax[0].set_title('Loss vs. Epochs')
@@ -226,6 +228,7 @@ def plot_loss_accuracy_graph(trainObj, testObj, EPOCHS):
     ax2.legend(loc='center right')
 
     # Accuracy Plot
+    #train_acc = [temp.cpu().detach() for temp in trainObj.train_acc]
     ax[1].plot(train_epoch_linspace, trainObj.train_acc, label='Training Accuracy')
     ax[1].set_xlabel('Epochs')
     ax[1].set_ylabel('Accuracy')
