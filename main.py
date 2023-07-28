@@ -51,7 +51,7 @@ class train:
             correct += predicted.eq(targets).sum().item()
 
             pbar.set_description(desc= f'Epoch: {epoch},Loss={loss.item():3.2f} Batch_id={batch_idx} Accuracy={100*correct/processed:0.2f}')
-            self.train_acc.append(100*correct/processed)
+            self.train_acc.append((100*correct/processed).cpu())
     
     def get_losses_acc(self):
         return self.train_losses, self.train_acc
