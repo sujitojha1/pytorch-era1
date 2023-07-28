@@ -171,6 +171,7 @@ def plot_grad_cam_images(model, test_loader, classes, device):
 
     misclassified_images = []
     actual_labels = []
+    actual_targets = []
     predicted_labels = []
     
     with torch.no_grad():
@@ -180,6 +181,7 @@ def plot_grad_cam_images(model, test_loader, classes, device):
             _, pred = torch.max(output, 1)
             for i in range(len(pred)):
                 if pred[i] != target[i]:
+                    actual_targets.append(target[i])
                     misclassified_images.append(data[i])
                     actual_labels.append(classes[target[i]])
                     predicted_labels.append(classes[pred[i]])
@@ -189,7 +191,7 @@ def plot_grad_cam_images(model, test_loader, classes, device):
     for i in range(10):
         sub = fig.add_subplot(2, 5, i+1)
         input_tensor = misclassified_images[i].unsqueeze(dim=0)
-        targets = [ClassifierOutputTarget(actual_labels[i])]
+        targets = [ClassifierOutputTarget(actual_targets[i])]
         grayscale_cam = cam(input_tensor=input_tensor, targets=targets)
         grayscale_cam = grayscale_cam[0, :]
         visualization = show_cam_on_image(unnormalize(misclassified_images[i].cpu()), grayscale_cam, use_rgb=True, image_weight=0.7)
