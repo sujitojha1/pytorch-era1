@@ -47,14 +47,12 @@ class train:
             train_loss += loss.item()
             
             _, predicted = outputs.max(1)
-            processed += targets.size(0)
+            processed += targets.size(0).item()
             correct += predicted.eq(targets).sum().item()
 
             pbar.set_description(desc= f'Epoch: {epoch},Loss={loss.item():3.2f} Batch_id={batch_idx} Accuracy={100*correct/processed:0.2f}')
             self.train_acc.append(100.*correct/processed)
-    
-    def get_losses_acc(self):
-        return self.train_losses, self.train_acc
+
 
 
 class test:
@@ -90,6 +88,3 @@ class test:
 
         # Save.
         self.test_acc.append(100. * correct / len(testloader.dataset))
-
-    def get_losses_acc(self):
-        return self.test_losses, self.test_acc
