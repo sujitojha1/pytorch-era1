@@ -47,7 +47,7 @@ class train:
             train_loss += loss.item()
             
             _, predicted = outputs.max(1)
-            processed += targets.size(0).item()
+            processed += targets.size(0)
             correct += predicted.eq(targets).sum().item()
 
             pbar.set_description(desc= f'Epoch: {epoch},Loss={loss.item():3.2f} Batch_id={batch_idx} Accuracy={100*correct/processed:0.2f}')
