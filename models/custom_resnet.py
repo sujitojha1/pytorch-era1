@@ -93,7 +93,7 @@ class Net(nn.Module):
         # return F.log_softmax(out, dim=-1)
         return out
 
-class LitCustomResnet(LightingModule):
+class LitCustomResnet(LightningModule):
     def __init__(self, lr = 0.05):
         super().__init__()
         self.model = Net()
