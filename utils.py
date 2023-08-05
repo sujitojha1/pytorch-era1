@@ -12,7 +12,7 @@ from albumentations.pytorch.transforms import ToTensorV2
 from pytorch_grad_cam import GradCAM
 from pytorch_grad_cam.utils.model_targets import ClassifierOutputTarget
 from pytorch_grad_cam.utils.image import show_cam_on_image
-
+from pl_bolts.datamodules import CIFAR10DataModule
 
 class album_Compose_train():
     def __init__(self):
@@ -44,6 +44,7 @@ class album_Compose_test():
         img = np.array(img)
         img = self.albumentations_transform(image=img)['image']
         return img
+
 
 class dataset_cifar10:
     """
