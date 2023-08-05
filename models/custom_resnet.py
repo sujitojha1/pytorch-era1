@@ -118,7 +118,7 @@ class LitCustomResnet(LightningModule):
         loss = F.cross_entropy(logits, y)
         preds = torch.argmax(logits, dim=1)
 
-        print(preds.shape,y.shape)
+        # print(preds.shape,y.shape)
         acc= accuracy(preds,y, task = "multiclass", num_classes=10)
 
         if stage:
