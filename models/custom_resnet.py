@@ -93,7 +93,7 @@ class Net(nn.Module):
         out = self.fc(out)
 
         # return F.log_softmax(out, dim=-1)
-        return out
+        return out.view(-1, 10)
 
 class LitCustomResnet(LightningModule):
     def __init__(self, lr = 0.05,batch_size=64):
