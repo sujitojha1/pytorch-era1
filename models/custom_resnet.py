@@ -2,6 +2,7 @@ import torch.nn.functional as F
 import torch.nn as nn
 from pytorch_lightning import LightningModule
 from torchmetrics.functional import accuracy
+import torch
 
 dropout_value = 0.1
 
