@@ -108,14 +108,14 @@ class LitCustomResnet(LightningModule):
     def training_step(self,batch,batch_id):
         x,y = batch
         logits = self(x)
-        loss = nn.CrossEntropyLoss(logits,y)
+        loss = F.cross_entropy(logits,y)
         self.log("training loss", loss)
         return loss
     
     def evaluate(self, batch, stage=None):
         x,y = batch
         logits = self(x)
-        loss = nn.CrossEntropyLoss(logits, y)
+        loss = F.cross_entropy(logits, y)
         preds = torch.argmax(logits, dim=1)
         acc= accuracy(preds,y)
 
