@@ -95,10 +95,11 @@ class Net(nn.Module):
         return out
 
 class LitCustomResnet(LightningModule):
-    def __init__(self, lr = 0.05):
+    def __init__(self, lr = 0.05,batch_size=64):
         super().__init__()
         self.model = Net()
         self.save_hyperparameters()
+        self.BATCH_SIZE=batch_size
 
     def forward(self,x):
         return self.model(x)
@@ -134,7 +135,7 @@ class LitCustomResnet(LightningModule):
             momentum=0.9,
             weight_decay=5e-4,
         )
-        steps_per_epoch = 45000 // BATCH_SIZE
+        steps_per_epoch = 45000 // self.BATCH_SIZE
         scheduler_dict = {
             "scheduler": OneCycleLR(
                 optimizer,
