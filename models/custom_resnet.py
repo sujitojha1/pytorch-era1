@@ -119,7 +119,7 @@ class LitCustomResnet(LightningModule):
         preds = torch.argmax(logits, dim=1)
 
         print(preds.shape,y.shape)
-        acc= accuracy(preds,y, task = "multiclass")
+        acc= accuracy(preds,y, task = "multiclass", num_classes=10)
 
         if stage:
             self.log(f"{stage}_loss", loss, prog_bar=True)
