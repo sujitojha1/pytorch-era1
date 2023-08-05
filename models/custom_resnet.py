@@ -142,7 +142,7 @@ class LitCustomResnet(LightningModule):
         scheduler_dict = {
             "scheduler": OneCycleLR(
                 optimizer,
-                0.1,
+                1.0,
                 epochs=self.trainer.max_epochs,
                 steps_per_epoch=steps_per_epoch,
             ),
