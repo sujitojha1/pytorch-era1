@@ -132,17 +132,17 @@ class LitCustomResnet(LightningModule):
         self.evaluate(batch, "test")
 
     def configure_optimizers(self):
-        optimizer = torch.optim.SGD(
+        optimizer = torch.optim.Adam(
             self.parameters(),
             lr=self.hparams.lr,
-            momentum=0.9,
-            weight_decay=5e-4,
+            # momentum=0.9,
+            # weight_decay=5e-4,
         )
         steps_per_epoch = 45000 // self.BATCH_SIZE
         scheduler_dict = {
             "scheduler": OneCycleLR(
                 optimizer,
-                0.01,
+                0.003,
                 epochs=self.trainer.max_epochs,
                 steps_per_epoch=steps_per_epoch,
             ),
